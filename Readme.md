@@ -5,7 +5,8 @@
 
 - [ ]  **ERD**
     -
-  - ![스크린샷 2025-05-10 15.57.22.png](../../Desktop/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-05-10%2015.57.22.png)
+  - ![스크린샷 2025-05-10 15 57 22](https://github.com/user-attachments/assets/53ef9e55-51ec-4d4a-8502-dac95a4d7bbb)
+
      
 
 ### Lv 1. 일정 생성 및 조회  

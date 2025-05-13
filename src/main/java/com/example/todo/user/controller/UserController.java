@@ -7,6 +7,7 @@ import com.example.todo.user.dto.response.UserDetailResponse;
 import com.example.todo.user.dto.response.UserResponse;
 import com.example.todo.user.dto.response.UserUpdateResponse;
 import com.example.todo.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import java.util.*;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/v1")
-    public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
         return ResponseEntity.ok(userService.createUser(createUserRequest));
-    }
-
-    @GetMapping("/v1")
-    public ResponseEntity<List<UserResponse>> findAllUser() {
-        return ResponseEntity.ok(userService.findAllUser());
     }
 
     @GetMapping("/v1/{id}")
@@ -35,7 +31,7 @@ public class UserController {
     }
 
     @PutMapping("/v1/{id}")
-    public ResponseEntity<UserUpdateResponse> updateUser(@PathVariable Long id, @RequestBody UserUpdateReqeust userUpdateReqeust) {
+    public ResponseEntity<UserUpdateResponse> updateUser(@PathVariable Long id, @RequestBody @Valid UserUpdateReqeust userUpdateReqeust) {
         return ResponseEntity.ok(userService.updateUser(id, userUpdateReqeust));
     }
 

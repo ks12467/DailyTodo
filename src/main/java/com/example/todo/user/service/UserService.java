@@ -38,16 +38,6 @@ public class UserService {
                 saveUser.getEmail()
         );
     }
-    public List<UserResponse> findAllUser() {
-        List<Users> userList = userRepository.findAll();
-
-        List<UserResponse> dtoList = new ArrayList<>();
-        for (Users user : userList) {
-            UserResponse dto = new UserResponse(user.getId(), user.getName());
-            dtoList.add(dto);
-        }
-        return dtoList;
-    }
 
     public UserDetailResponse findByIdUser(Long id) {
         Users findUserId = userRepository.findById(id).orElseThrow(

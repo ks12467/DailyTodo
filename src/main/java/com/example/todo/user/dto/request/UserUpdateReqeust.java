@@ -6,5 +6,5 @@ import lombok.Getter;
 public class UserUpdateReqeust {
 
     private String name;
-    private String birth;
+    private String email;
 }

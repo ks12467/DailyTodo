@@ -1,6 +1,6 @@
 package com.example.todo.memo.entity;
 
-import com.example.todo.memo.config.TimeStamped;
+import com.example.todo.config.TimeStamped;
 import com.example.todo.user.entity.Users;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.example.todo.memo.config;
+package com.example.todo.config;
 
 import jakarta.persistence.*;
 import lombok.Getter;

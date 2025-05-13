@@ -8,6 +8,8 @@ import com.example.todo.user.dto.response.UserResponse;
 import com.example.todo.user.dto.response.UserUpdateResponse;
 import com.example.todo.user.entity.Users;
 import com.example.todo.user.repository.UserRepository;
+import com.example.todo.utils.ApiException;
+import com.example.todo.utils.apipayload.status.ErrorStatus;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,18 +28,16 @@ public class UserService {
 
         Users user = new Users(
                 createUserRequest.getName(),
-                createUserRequest.getBirth(),
-                createUserRequest.getGender()
+                createUserRequest.getEmail()
         );
 
         Users saveUser = userRepository.save(user);
         return new CreateUserResponse(
                 saveUser.getId(),
                 saveUser.getName(),
-                saveUser.getBirth(),
-                saveUser.getGender());
+                saveUser.getEmail()
+        );
     }
-
     public List<UserResponse> findAllUser() {
         List<Users> userList = userRepository.findAll();
 
@@ -51,33 +51,35 @@ public class UserService {
 
     public UserDetailResponse findByIdUser(Long id) {
         Users findUserId = userRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("User Not Found")
+                () -> new ApiException(ErrorStatus._NOT_FOUND_USER)
         );
         return new UserDetailResponse(
                 findUserId.getId(),
                 findUserId.getName(),
-                findUserId.getBirth(),
-                findUserId.getGender());
+                findUserId.getEmail()
+        );
     }
 
     @Transactional
     public UserUpdateResponse updateUser(Long id, UserUpdateReqeust userUpdateReqeust) {
         Users findUserId = userRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("User Not Found")
+                () -> new ApiException(ErrorStatus._NOT_FOUND_USER)
         );
-        findUserId.update(userUpdateReqeust.getName(), userUpdateReqeust.getBirth());
-        return new UserUpdateResponse(findUserId.getId(), findUserId.getName(), findUserId.getBirth());
+        findUserId.update(userUpdateReqeust.getName(), userUpdateReqeust.getEmail());
+        return new UserUpdateResponse(findUserId.getId(), findUserId.getName(), findUserId.getEmail());
     }
 
 
     public Void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        Users user = userRepository.findById(id).orElseThrow(
+                () -> new ApiException(ErrorStatus._NOT_FOUND_USER)
+        );
         return null;
     }
 
     public Users findByIdUserRepo(Long id) {
         return userRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("사용자를 찾을 수 없습니다.")
+                () -> new ApiException(ErrorStatus._NOT_FOUND_USER)
         );
     }
 }

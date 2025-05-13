@@ -9,5 +9,5 @@ public class UserUpdateResponse {
 
     private final Long userId;
     private final String name;
-    private final String birth;
+    private final String email;
 }

@@ -1,35 +1,33 @@
 package com.example.todo.user.entity;
 
-import com.example.todo.user.config.Gender;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import com.example.todo.config.TimeStamped;
+import com.example.todo.memo.entity.Memo;
+import jakarta.persistence.*;
+import java.util.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+public class Users extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private String birth;
-    private Gender gender;
+    private String email;
 
-    public Users(String name, String birth, Gender gender) {
+    @OneToMany(mappedBy = "author")
+    private List<Memo> memos;
+
+    public Users(String name, String email) {
         this.name = name;
-        this.birth = birth;
-        this.gender = gender;
+        this.email = email;
     }
 
-    public void update(String name, String birth) {
+    public void update(String name, String email) {
         this.name = name;
-        this.birth = birth;
+        this.email = email;
     }
 }

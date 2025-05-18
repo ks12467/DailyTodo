@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -17,6 +19,8 @@ public class Memo extends TimeStamped {
     private String title;
     private String content;
     private String password;
+    private LocalDateTime create_at;
+    private LocalDateTime modified_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

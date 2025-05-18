@@ -4,7 +4,6 @@ import com.example.todo.user.dto.request.CreateUserRequest;
 import com.example.todo.user.dto.request.UserUpdateReqeust;
 import com.example.todo.user.dto.response.CreateUserResponse;
 import com.example.todo.user.dto.response.UserDetailResponse;
-import com.example.todo.user.dto.response.UserResponse;
 import com.example.todo.user.dto.response.UserUpdateResponse;
 import com.example.todo.user.entity.Users;
 import com.example.todo.user.repository.UserRepository;
@@ -13,9 +12,6 @@ import com.example.todo.utils.apipayload.status.ErrorStatus;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service
@@ -28,7 +24,8 @@ public class UserService {
 
         Users user = new Users(
                 createUserRequest.getName(),
-                createUserRequest.getEmail()
+                createUserRequest.getEmail(),
+                createUserRequest.getPassword()
         );
 
         Users saveUser = userRepository.save(user);
@@ -55,7 +52,7 @@ public class UserService {
         Users findUserId = userRepository.findById(id).orElseThrow(
                 () -> new ApiException(ErrorStatus._NOT_FOUND_USER)
         );
-        findUserId.update(userUpdateReqeust.getName(), userUpdateReqeust.getEmail());
+        findUserId.update(userUpdateReqeust.getName(), userUpdateReqeust.getEmail(), userUpdateReqeust.getPassword());
         return new UserUpdateResponse(findUserId.getId(), findUserId.getName(), findUserId.getEmail());
     }
 

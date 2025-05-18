@@ -17,7 +17,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
-    public String loginUser(HttpServletRequest httpRequest, LoginRequest loginRequest) throws Exception {
+    public String loginUser(HttpServletRequest httpRequest, LoginRequest loginRequest)  {
         Users user = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("이메일 없음"));
 
